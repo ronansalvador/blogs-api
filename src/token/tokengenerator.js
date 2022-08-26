@@ -13,9 +13,14 @@ const tokenGenerator = {
   },
 
   verifyToken: (token) => {
-    const payload = jwt.verify(token, JWT_SECRET);
-
-    return payload;
+    console.log('token error');
+    if (!token) throw new Error('401|Token not found');
+    try {
+      jwt.verify(token, JWT_SECRET);
+    } catch (error) {
+      console.log(error);
+      throw new Error('401|Expired or invalid token');
+    }
   },
 };
 
