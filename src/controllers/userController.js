@@ -17,6 +17,23 @@ const userController = {
     const result = await userService.allUsers();
     return res.status(200).json(result);
   },
+
+  getUser: async (req, res) => {
+    const { id } = req.params;
+    // const result = await userService.getUser(id);
+    
+    try {
+      const result = await userService.getUser(id);
+  
+      if (!result) throw Error;
+  
+      return res.status(200).json(result);
+    } catch (err) {
+      res
+        .status(404)
+        .json({ message: 'User does not exist', error: err.message });
+    }
+  },
 };
 
 module.exports = userController;

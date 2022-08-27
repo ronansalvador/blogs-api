@@ -32,6 +32,16 @@ const userService = {
     );
     return result;
   },
+
+  getUser: async (id) => {
+    const result = await User.findOne(
+      {
+        where: { id },
+        attributes: { exclude: ['password'] },
+      },
+    );
+    return result;
+  },
 };
 
 module.exports = userService;

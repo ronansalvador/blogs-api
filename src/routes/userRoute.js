@@ -7,5 +7,6 @@ const userRoute = Router();
 
 userRoute.post('/', userValidator.validateCreateUser, userController.create);
 userRoute.get('/', validateToken, userController.allUsers);
+userRoute.get('/:id', validateToken, userController.getUser);
 
 module.exports = userRoute; 
