@@ -10,6 +10,7 @@ app.use(express.json());
 
 app.use('/login', routes.loginRoute);
 app.use('/user', routes.userRoute);
+app.use('/categories', routes.categoriesRoute);
 
 app.use((err, _req, res, _next) => {
   const [code, message] = err.message.split('|');
