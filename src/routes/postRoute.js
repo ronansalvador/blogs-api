@@ -10,4 +10,4 @@ postRoute.post('/', isAuth.validToken, isValid.validPost, postController.create)
 postRoute.get('/', isAuth.validToken, postController.getAll);
 postRoute.get('/:id', isAuth.validToken, postController.getById);
 
-module.exports = postRoute; 
+module.exports = postRoute;
