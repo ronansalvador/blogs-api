@@ -30,6 +30,19 @@ const create = async (req, res) => {
   }
 };
 
+const getAll = async (req, res) => {
+  try {
+    const posts = await postService.getAll();
+
+    return res.status(200).json(posts);
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: ERROR_MESSAGES, error: err.message });
+  }
+};
+
 module.exports = {
   create,
+  getAll,
 }; 
