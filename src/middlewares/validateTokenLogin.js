@@ -16,7 +16,7 @@ const validToken = async (req, res, next) => {
   const user = await User.findOne({ where: { email } });
 
   if (!user) throw Error;
-
+  req.userId = user.id;
   next();
 } catch (err) {
   console.log(err);

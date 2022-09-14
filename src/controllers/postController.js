@@ -60,8 +60,35 @@ const getById = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  const { id } = req.params;
+  const token = req.headers.authorization;
+
+  const { email } = jwt.verify(token, JWT_SECRET);
+
+  const { dataValues: { id: userId } } = await User.findOne({ where: { email } });
+
+  try {
+    const postUpdate = req.body;
+
+    const authorPost = await postService.verifyAuthorPost(id, userId);
+
+    if (authorPost.message) {
+      return res.status(authorPost.code).json({ message: authorPost.message });
+    }
+    const updatedPost = await postService.update(postUpdate, id);
+
+    return res.status(200).json(updatedPost);
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: ERROR_MESSAGES, error: err.message });
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 }; 
